@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Bank Account Application Prediction</title>
+  <link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Arimo' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Hind:300' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
+  <style>
+    body {
+        background-color: #eaf8e3;
+        font-family: 'Roboto', sans-serif;
+    }
+
+    .grid-container {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-gap: 10px;
+    }
+
+    .grid-container input {
+      width: 50%;
+      margin: 5px auto;
+    }
+
+    .form-group {
+      display: flex;
+      align-items: center;
+    }
+
+    .form-group label {
+      width: 240px;
+      text-align: right;
+      padding-right: 10px;
+    }
+
+    .button-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .button-container button {
+      width: 20%;
+      margin: 0 5px;
+    }
+
+    .prediction-container {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    .prediction-fraud {
+        color: red;
+    }
+
+    .prediction-genuine {
+        color: green;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="login" style="text-align: center;">
+    <h1 style="margin-top: 24px;">Bank Account Application Prediction</h1>
+    <form id="prediction_form" action="{{ url_for('predict')}}" method="post">
+      <div class="grid-container">
+        <div class="form-group">
+            <label for="income">Income:</label>
+            <input type="text" name="income" placeholder="[0.1, 0.9]" value="{{ request.form.income }}" required="required" />
+        </div>
+        <div class="form-group">
+            <label for="name_email_similarity">Name Email Similarity:</label>
+            <input type="text" name="name_email_similarity" placeholder="[0, 1]" value="{{ request.form.name_email_similarity }}" required="required" />
+        </div>
+        <div class="form-group">   
+            <label for="prev_address_months_count">Prev Address Months Count:</label>
+            <input type="text" name="prev_address_months_count" placeholder="[-1, 380]" value="{{ request.form.prev_address_months_count }}" required="required" />
+        </div>
+        <div class="form-group">
+            <label for="current_address_months_count">Current Address Months Count:</label>
+            <input type="text" name="current_address_months_count" placeholder="[-1, 429]" value="{{ request.form.current_address_months_count }}" required="required" />
+        </div>
+        <div class="form-group">    
+            <label for="customer_age">Customer Age:</label>
+            <input type="text" name="customer_age" placeholder="[10, 90]" value="{{ request.form.customer_age }}" required="required" />
+        </div>
+        <div class="form-group">   
+            <label for="days_since_request">Days Since Request:</label>
+            <input type="text" name="days_since_request" placeholder="[0, 79]" value="{{ request.form.days_since_request }}" required="required" />
+        </div>
+        <div class="form-group">   
+            <label for="intended_balcon_amount">Intended Balcon Amount:</label>
+            <input type="text" name="intended_balcon_amount" placeholder="[-16, 114]" value="{{ request.form.intended_balcon_amount }}" required="required" />
+        </div>
+        <div class="form-group">    
+            <label for="zip_count_4w">Zip Count 4W:</label>
+            <input type="text" name="zip_count_4w" placeholder="[1, 6830]" value="{{ request.form.zip_count_4w }}" required="required" />
+        </div>
+        <div class="form-group">    
+            <label for="velocity_6h">Velocity 6H:</label>
+            <input type="text" name="velocity_6h" placeholder="[-175, 16818]" value="{{ request.form.velocity_6h }}" required="required" />
+        </div>
+        <div class="form-group">    
+            <label for="velocity_24h">Velocity 24H:</label>
+            <input type="text" name="velocity_24h" placeholder="[1297, 9586]" value="{{ request.form.velocity_24h }}" required="required" />
+        </div>
+        <div class="form-group">   
+            <label for="velocity_4w">Velocity 4W:</label>
+            <input type="text" name="velocity_4w" placeholder="[2825, 7020]" value="{{ request.form.velocity_4w }}" required="required" />
+        </div>
+        <div class="form-group">    
+            <label for="bank_branch_count_8w">Bank Branch Count 8W:</label>
+            <input type="text" name="bank_branch_count_8w" placeholder="[0, 2404]" value="{{ request.form.bank_branch_count_8w }}" required="required" />
+        </div>
+        <div class="form-group">    
+            <label for="date_of_birth_distinct_emails_4w">Date of Birth Distinct Emails 4W:</label>
+            <input type="text" name="date_of_birth_distinct_emails_4w" placeholder="[0, 39]" value="{{ request.form.date_of_birth_distinct_emails_4w }}" required="required" />
+        </div>
+        <div class="form-group">    
+            <label for="credit_risk_score">Credit Risk Score:</label>
+            <input type="text" name="credit_risk_score" placeholder="[-191, 389]" value="{{ request.form.credit_risk_score }}" required="required" />
+        </div>
+        <div class="form-group">    
+            <label for="email_is_free">Email Is Free:</label>
+            <input type="text" name="email_is_free" placeholder="[0, 1]" value="{{ request.form.email_is_free }}" required="required" />
+        </div>
+        <div class="form-group">    
+            <label for="phone_home_valid">Phone Home Valid:</label>
+            <input type="text" name="phone_home_valid" placeholder="[0, 1]" value="{{ request.form.phone_home_valid }}" required="required" />
+        </div>
+        <div class="form-group">    
+            <label for="phone_mobile_valid">Phone Mobile Valid:</label>
+            <input type="text" name="phone_mobile_valid" placeholder="[0, 1]" value="{{ request.form.phone_mobile_valid }}" required="required" />
+        </div>
+        <div class="form-group">    
+            <label for="bank_months_count">Bank Months Count:</label>
+            <input type="text" name="bank_months_count" placeholder="[-1, 32]" value="{{ request.form.bank_months_count }}" required="required" />
+        </div>
+        <div class="form-group">    
+            <label for="has_other_cards">Has Other Cards:</label>
+            <input type="text" name="has_other_cards" placeholder="[0, 1]" value="{{ request.form.has_other_cards }}" required="required" />
+        </div>
+        <div class="form-group">    
+            <label for="proposed_credit_limit">Proposed Credit Limit:</label>
+            <input type="text" name="proposed_credit_limit" placeholder="[200, 2000]" value="{{ request.form.proposed_credit_limit }}" required="required" />
+        </div>
+        <div class="form-group">   
+            <label for="foreign_request">Foreign Request:</label>
+            <input type="text" name="foreign_request" placeholder="[0, 1]" value="{{ request.form.foreign_request }}" required="required" />
+        </div>
+        <div class="form-group">    
+            <label for="session_length_in_minutes">Session Length in Minutes:</label>
+            <input type="text" name="session_length_in_minutes" placeholder="[-1, 107]" value="{{ request.form.session_length_in_minutes }}" required="required" />
+        </div>
+        <div class="form-group">    
+            <label for="keep_alive_session">Keep Alive Session:</label>
+            <input type="text" name="keep_alive_session" placeholder="[0, 1]" value="{{ request.form.keep_alive_session }}" required="required" />
+        </div>
+        <div class="form-group">    
+            <label for="device_distinct_emails_8w">Device Distinct Emails 8W:</label>
+            <input type="text" name="device_distinct_emails_8w" placeholder="[-1, 2]" value="{{ request.form.device_distinct_emails_8w }}" required="required" />
+        </div>
+        <div class="form-group">    
+            <label for="month">Month:</label>
+            <input type="text" name="month" placeholder="[0, 7]" value="{{ request.form.month }}" required="required" />
+        </div>
+        <div class="form-group">    
+            <label for="payment_type_AA">Payment Type AA:</label>
+            <input type="text" name="payment_type_AA" placeholder="[0, 1]" value="{{ request.form.payment_type_AA }}" required="required" />
+        </div>
+        <div class="form-group">    
+            <label for="payment_type_AB">Payment Type AB:</label>
+            <input type="text" name="payment_type_AB" placeholder="[0, 1]" value="{{ request.form.payment_type_AB }}" required="required" />
+        </div>
+        <div class="form-group">    
+            <label for="payment_type_AC">Payment Type AC:</label>
+            <input type="text" name="payment_type_AC" placeholder="[0, 1]" value="{{ request.form.payment_type_AC }}" required="required" />
+        </div>
+        <div class="form-group">    
+            <label for="payment_type_AD">Payment Type AD:</label>
+            <input type="text" name="payment_type_AD" placeholder="[0, 1]" value="{{ request.form.payment_type_AD }}" required="required" />
+        </div>
+        <div class="form-group">    
+            <label for="payment_type_AE">Payment Type AE:</label>
+            <input type="text" name="payment_type_AE" placeholder="[0, 1]" value="{{ request.form.payment_type_AE }}" required="required" />
+        </div>
+        <div class="form-group">    
+            <label for="employment_status_CA">Employment Status CA:</label>
+            <input type="text" name="employment_status_CA" placeholder="[0, 1]" value="{{ request.form.employment_status_CA }}" required="required" />
+        </div>
+        <div class="form-group">    
+            <label for="employment_status_CB">Employment Status CB:</label>
+            <input type="text" name="employment_status_CB" placeholder="[0, 1]" value="{{ request.form.employment_status_CB }}" required="required" />
+        </div>
+        <div class="form-group">    
+            <label for="employment_status_CC">Employment Status CC:</label>
+            <input type="text" name="employment_status_CC" placeholder="[0, 1]" value="{{ request.form.employment_status_CC }}" required="required" />
+        </div>
+        <div class="form-group">    
+            <label for="employment_status_CD">Employment Status CD:</label>
+            <input type="text" name="employment_status_CD" placeholder="[0, 1]" value="{{ request.form.employment_status_CD }}" required="required" />
+        </div>
+        <div class="form-group">    
+            <label for="employment_status_CE">Employment Status CE:</label>
+            <input type="text" name="employment_status_CE" placeholder="[0, 1]" value="{{ request.form.employment_status_CE }}" required="required" />
+        </div>
+        <div class="form-group">    
+            <label for="employment_status_CF">Employment Status CF:</label>
+            <input type="text" name="employment_status_CF" placeholder="[0, 1]" value="{{ request.form.employment_status_CF }}" required="required" />
+        </div>
+        <div class="form-group">    
+            <label for="employment_status_CG">Employment Status CG:</label>
+            <input type="text" name="employment_status_CG" placeholder="[0, 1]" value="{{ request.form.employment_status_CG }}" required="required" />
+        </div>
+        <div class="form-group">   
+            <label for="housing_status_BA">Housing Status BA:</label>
+            <input type="text" name="housing_status_BA" placeholder="[0, 1]" value="{{ request.form.housing_status_BA }}" required="required" />
+        </div>
+        <div class="form-group">  
+            <label for="housing_status_BB">Housing Status BB:</label>
+            <input type="text" name="housing_status_BB" placeholder="[0, 1]" value="{{ request.form.housing_status_BB }}" required="required" />
+        </div>
+        <div class="form-group">
+            <label for="housing_status_BC">Housing Status BC:</label>
+            <input type="text" name="housing_status_BC" placeholder="[0, 1]" value="{{ request.form.housing_status_BC }}" required="required" />
+        </div>
+        <div class="form-group">
+            <label for="housing_status_BD">Housing Status BD:</label>
+            <input type="text" name="housing_status_BD" placeholder="[0, 1]" value="{{ request.form.housing_status_BD }}" required="required" />
+        </div>
+        <div class="form-group">
+            <label for="housing_status_BE">Housing Status BE:</label>
+            <input type="text" name="housing_status_BE" placeholder="[0, 1]" value="{{ request.form.housing_status_BE }}" required="required" />
+        </div>
+        <div class="form-group">
+            <label for="housing_status_BF">Housing Status BF:</label>
+            <input type="text" name="housing_status_BF" placeholder="[0, 1]" value="{{ request.form.housing_status_BF }}" required="required" />
+        </div>
+        <div class="form-group">
+            <label for="housing_status_BG">Housing Status BG:</label>
+            <input type="text" name="housing_status_BG" placeholder="[0, 1]" value="{{ request.form.housing_status_BG }}" required="required" />
+        </div>
+        <div class="form-group">
+            <label for="source_INTERNET">Source INTERNET:</label>
+            <input type="text" name="source_INTERNET" placeholder="[0, 1]" value="{{ request.form.source_INTERNET }}" required="required" />
+        </div>
+        <div class="form-group"> 
+            <label for="source_TELEAPP">Source TELEAPP:</label>
+            <input type="text" name="source_TELEAPP" placeholder="[0, 1]" value="{{ request.form.source_TELEAPP }}" required="required" />
+        </div>
+        <div class="form-group">
+            <label for="device_os_linux">Device OS Linux:</label>
+            <input type="text" name="device_os_linux" placeholder="[0, 1]" value="{{ request.form.device_os_linux }}" required="required" />
+        </div>
+        <div class="form-group">
+            <label for="device_os_macintosh">Device OS Macintosh:</label>
+            <input type="text" name="device_os_macintosh" placeholder="[0, 1]" value="{{ request.form.device_os_macintosh }}" required="required" />
+        </div>
+        <div class="form-group"> 
+            <label for="device_os_other">Device OS Other:</label>
+            <input type="text" name="device_os_other" placeholder="[0, 1]" value="{{ request.form.device_os_other }}" required="required" />
+        </div>
+        <div class="form-group">
+            <label for="device_os_windows">Device OS Windows:</label>
+            <input type="text" name="device_os_windows" placeholder="[0, 1]" value="{{ request.form.device_os_windows }}" required="required" />
+        </div>
+        <div class="form-group">
+            <label for="device_os_x11">Device OS X11:</label>
+            <input type="text" name="device_os_x11" placeholder="[0, 1]" value="{{ request.form.device_os_x11 }}" required="required" />
+        </div>
+        </div>
+      <br>
+      <br>
+      <div class="button-container">
+        <button type="button" class="btn btn-secondary" onclick="clearForm()">Clear</button>
+        <button type="button" class="btn btn-primary" onclick="fillFormWithRandomRow()">Generate</button>
+        <button type="submit" class="btn btn-primary btn-block btn-large">Predict</button>
+      </div>
+    </form>
+    <div class="prediction-container {% if 'Fraud' in prediction_text %}prediction-fraud{% elif 'Genuine' in prediction_text %}prediction-genuine{% endif %}">
+        {{ prediction_text }}
+    </div> 
+  </div>
+
+  <script>
+    // JavaScript function to fill the form with random row data
+    function fillFormWithRandomRow() {
+    // Make an AJAX request to the server to fetch a random row
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', '/get_random_row', true);
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+        var data = JSON.parse(xhr.responseText);
+
+        // Fill the form with the random row data
+        var form = document.getElementById("prediction_form");
+        var inputs = form.querySelectorAll("input[name]");
+
+        inputs.forEach(function (input) {
+            var name = input.getAttribute("name");
+            if (data.hasOwnProperty(name)) {
+            input.value = data[name];
+            }
+        });
+        }
+    };
+    xhr.send();
+    }
+
+    // JavaScript function to clear the form
+    function clearForm() {
+        var inputs = document.getElementById("prediction_form").getElementsByTagName("input");
+        var predictionContainer = document.querySelector(".prediction-container");
+        
+        // Clear form inputs
+        for (var i = 0; i < inputs.length; i++) {
+            inputs[i].value = "";
+        }
+        
+        // Clear prediction text
+        predictionContainer.textContent = "";
+    }
+
+  </script>
+
+</body>
+
+</html>
