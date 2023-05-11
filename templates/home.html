@@ -282,9 +282,13 @@
         <button type="submit" class="btn btn-primary btn-block btn-large">Predict</button>
       </div>
     </form>
+    <br>
+    <br>
     <div class="prediction-container {% if 'Fraud' in prediction_text %}prediction-fraud{% elif 'Genuine' in prediction_text %}prediction-genuine{% endif %}">
         {{ prediction_text }}
-    </div> 
+    </div>
+    <br>
+    <br> 
   </div>
 
   <script>
