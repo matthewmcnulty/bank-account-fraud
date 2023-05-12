@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
 <head>
   <meta charset="UTF-8">
   <title>Bank Account Application Prediction</title>
@@ -63,7 +62,6 @@
     }
   </style>
 </head>
-
 <body>
   <div class="login" style="text-align: center;">
     <h1 style="margin-top: 24px;">Bank Account Application Prediction</h1>
@@ -279,11 +277,11 @@
       <div class="button-container">
         <button type="button" class="btn btn-secondary" onclick="clearForm()">Clear</button>
         <button type="button" class="btn btn-primary" onclick="fillFormWithRandomRow()">Generate</button>
-        <button type="submit" class="btn btn-primary btn-block btn-large">Predict</button>
+        <button type="button" class="btn btn-primary btn-block btn-large" onclick="predict()">Predict</button>
       </div>
+      <br>
+      <br>
     </form>
-    <br>
-    <br>
     <div class="prediction-container {% if 'Fraud' in prediction_text %}prediction-fraud{% elif 'Genuine' in prediction_text %}prediction-genuine{% endif %}">
         {{ prediction_text }}
     </div>
@@ -292,6 +290,20 @@
   </div>
 
   <script>
+    // JavaScript function to clear the form
+    function clearForm() {
+        var inputs = document.getElementById("prediction_form").getElementsByTagName("input");
+        var predictionContainer = document.querySelector(".prediction-container");
+        
+        // Clear form inputs
+        for (var i = 0; i < inputs.length; i++) {
+            inputs[i].value = "";
+        }
+        
+        // Clear prediction text
+        predictionContainer.textContent = "";
+    }
+    
     // JavaScript function to fill the form with random row data
     function fillFormWithRandomRow() {
     // Make an AJAX request to the server to fetch a random row
@@ -315,23 +327,6 @@
     };
     xhr.send();
     }
-
-    // JavaScript function to clear the form
-    function clearForm() {
-        var inputs = document.getElementById("prediction_form").getElementsByTagName("input");
-        var predictionContainer = document.querySelector(".prediction-container");
-        
-        // Clear form inputs
-        for (var i = 0; i < inputs.length; i++) {
-            inputs[i].value = "";
-        }
-        
-        // Clear prediction text
-        predictionContainer.textContent = "";
-    }
-
   </script>
-
 </body>
-
 </html>
