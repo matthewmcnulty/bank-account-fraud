@@ -12,7 +12,12 @@ xgb_model = pickle.load(open('./models/xgb_test.pkl', 'rb'))
 @app.route('/')
 def home():
     # Render the home.html template
-    return render_template('home.html')
+    return render_template('home.html', active_tab='home')
+
+@app.route('/about')
+def text_page():
+    # Render the text.html template
+    return render_template('about.html', active_tab='about')
 
 @app.route('/get_random_row', methods=['GET'])
 def get_random_row():
@@ -75,10 +80,8 @@ def predict_api():
     print(output[0])
 
     # Return the prediction as a JSON response
-    return jsonify(f"Predicted Class of Bank Account Application is {int(output[0])}")
+    return jsonify(int(output[0]))
 
 if __name__ == "__main__":
     # Run the Flask application in debug mode
     app.run(debug=True)
-
-

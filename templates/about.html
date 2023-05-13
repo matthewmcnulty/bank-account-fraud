@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Bank Account Application Prediction</title>
+  <link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Arimo' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Hind:300' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
+  <link rel='stylesheet' type='text/css' href='../static/styles.css'>
+</head>
+<body>
+    <div>
+    <nav class="navbar">
+        <h1 class="navbar-title">Bank Account Application Prediction</h1>
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link {% if active_tab == 'home' %}active{% endif %}" href="/">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link {% if active_tab == 'about' %}active{% endif %}" href="/about">About</a>
+            </li>
+            <li class="nav-item"><a class="nav-link" href="https://www.kaggle.com/datasets/sgpjesus/bank-account-fraud-dataset-neurips-2022" target="_blank">Data</a></li>
+            <li class="nav-item"><a class="nav-link" href="https://github.com/matthewmcnulty/bank-account-fraud" target="_blank">GitHub</a></li>
+            <li class="nav-item"><a class="nav-link" href="https://www.linkedin.com/in/matthewmcnulty95/" target="_blank">LinkedIn</a></li>
+        </ul>
+    </nav>  
+    <div class="data-list">
+        <ul>
+            <li><strong>income</strong> (numeric): Annual income of the applicant (in decile form). Ranges between [0.1, 0.9].</li>
+            <li><strong>name_email_similarity</strong> (numeric): Metric of similarity between email and applicant's name. Higher values represent higher similarity. Ranges between [0, 1].</li>
+            <li><strong>prev_address_months_count</strong> (numeric): Number of months in the previous registered address of the applicant, i.e., the applicant's previous residence, if applicable. Ranges between [-1, 380] months (-1 is a missing value).</li>
+            <li><strong>current_address_months_count</strong> (numeric): Months in the currently registered address of the applicant. Ranges between [-1, 429] months (-1 is a missing value).</li>
+            <li><strong>customer_age</strong> (numeric): Applicant's age in years, rounded to the decade. Ranges between [10, 90] years.</li>
+            <li><strong>days_since_request</strong> (numeric): Number of days passed since the application was done. Ranges between [0, 79] days.</li>
+            <li><strong>intended_balcon_amount</strong> (numeric): Initial transferred amount for the application. Ranges between [-16, 114] (negatives are missing values).</li>
+            <li><strong>zip_count_4w</strong> (numeric): Number of applications within the same zip code in the last 4 weeks. Ranges between [1, 6830].</li>
+            <li><strong>velocity_6h</strong> (numeric): Velocity of total applications made in the last 6 hours, i.e., the average number of applications per hour in the last 6 hours. Ranges between [-175, 16818].</li>
+            <li><strong>velocity_24h</strong> (numeric): Velocity of total applications made in the last 24 hours, i.e., the average number of applications per hour in the last 24 hours. Ranges between [1297, 9586].</li>
+            <li><strong>velocity_4w</strong> (numeric): Velocity of total applications made in the last 4 weeks, i.e., the average number of applications per hour in the last 4 weeks. Ranges between [2825, 7020].</li>
+            <li><strong>bank_branch_count_8w</strong> (numeric): Number of total applications in the selected bank branch in the last 8 weeks. Ranges between [0, 2404].</li>
+            <li><strong>date_of_birth_distinct_emails_4w</strong> (numeric): Number of emails for applicants with the same date of birth in the last 4 weeks. Ranges between [0, 39].</li>
+            <li><strong>credit_risk_score</strong> (numeric): Internal score of application risk. Ranges between [-191, 389].</li>
+            <li><strong>email_is_free</strong> (binary): Domain of the application email (either free or paid).</li>
+            <li><strong>phone_home_valid</strong> (binary): Validity of the provided home phone.</li>
+            <li><strong>phone_mobile_valid</strong> (binary): Validity of the provided mobile phone.</li>
+            <li><strong>bank_months_count</strong> (numeric): How old is the previous account (if held) in months. Ranges between [-1, 32] months (-1 is a missing value).</li>
+            <li><strong>has_other_cards</strong> (binary): If the applicant has other cards from the same banking company.</li>
+            <li><strong>proposed_credit_limit</strong> (numeric): Applicant's proposed credit limit. Ranges between [200, 2000].</li>
+            <li><strong>foreign_request</strong> (binary): If the origin country of the request is different from the bank's country.</li>
+            <li><strong>session_length_in_minutes</strong> (numeric): Length of user session in the banking website in minutes. Ranges between [-1, 107] minutes (-1 is a missing value).</li>
+            <li><strong>keep_alive_session</strong> (binary): User option on session logout.</li>
+            <li><strong>device_distinct_emails</strong> (numeric): Number of distinct emails in the banking website from the used device in the last 8 weeks. Ranges between [-1, 2] emails (-1 is a missing value).</li>
+            <li><strong>month</strong> (numeric): Month when the application was made. Ranges between [0, 7].</li>
+            <li><strong>payment_type</strong> (categorical): Credit payment plan type. 5 possible (anonymized) values.</li>
+            <li><strong>employment_status</strong> (categorical): Employment status of the applicant. 7 possible (anonymized) values.</li>
+            <li><strong>housing_status</strong> (categorical): Current residential status for the applicant. 7 possible (anonymized) values.</li>
+            <li><strong>source</strong> (categorical): Online source of the application. Either browser (INTERNET) or app (TELEAPP).</li>
+            <li><strong>device_os</strong> (categorical): Operating system of the device that made the request. Possible values are: Windows, macOS, Linux, X11, or other.</li>
+        </ul>
+    </div>
+</body>
+</html>

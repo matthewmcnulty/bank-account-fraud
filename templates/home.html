@@ -7,66 +7,26 @@
   <link href='https://fonts.googleapis.com/css?family=Arimo' rel='stylesheet' type='text/css'>
   <link href='https://fonts.googleapis.com/css?family=Hind:300' rel='stylesheet' type='text/css'>
   <link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
-  <style>
-    body {
-        background-color: #eaf8e3;
-        font-family: 'Roboto', sans-serif;
-    }
-
-    .grid-container {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      grid-gap: 10px;
-    }
-
-    .grid-container input {
-      width: 50%;
-      margin: 5px auto;
-    }
-
-    .form-group {
-      display: flex;
-      align-items: center;
-    }
-
-    .form-group label {
-      width: 240px;
-      text-align: right;
-      padding-right: 10px;
-    }
-
-    .button-container {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .button-container button {
-      width: 20%;
-      margin: 0 5px;
-    }
-
-    .prediction-container {
-      text-align: center;
-      margin-top: 20px;
-      font-size: 18px;
-      font-weight: bold;
-    }
-
-    .prediction-fraud {
-        color: red;
-    }
-
-    .prediction-genuine {
-        color: green;
-    }
-  </style>
+  <link rel='stylesheet' type='text/css' href='../static/styles.css'>
 </head>
 <body>
-  <div class="login" style="text-align: center;">
-    <h1 style="margin-top: 24px;">Bank Account Application Prediction</h1>
+    <div>
+    <nav class="navbar">
+        <h1 class="navbar-title">Bank Account Application Prediction</h1>
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link {% if active_tab == 'home' %}active{% endif %}" href="/">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link {% if active_tab == 'about' %}active{% endif %}" href="/about">About</a>
+            </li>
+            <li class="nav-item"><a class="nav-link" href="https://www.kaggle.com/datasets/sgpjesus/bank-account-fraud-dataset-neurips-2022" target="_blank">Data</a></li>
+            <li class="nav-item"><a class="nav-link" href="https://github.com/matthewmcnulty/bank-account-fraud" target="_blank">GitHub</a></li>
+            <li class="nav-item"><a class="nav-link" href="https://www.linkedin.com/in/matthewmcnulty95/" target="_blank">LinkedIn</a></li>
+        </ul>
+    </nav>   
     <form id="prediction_form" action="{{ url_for('predict')}}" method="post">
-      <div class="grid-container">
+        <div class="grid-container">
         <div class="form-group">
             <label for="income">Income:</label>
             <input type="text" name="income" placeholder="[0.1, 0.9]" value="{{ request.form.income }}" required="required" />
@@ -272,61 +232,22 @@
             <input type="text" name="device_os_x11" placeholder="[0, 1]" value="{{ request.form.device_os_x11 }}" required="required" />
         </div>
         </div>
-      <br>
-      <br>
-      <div class="button-container">
+    <br>
+    <br>
+    <div class="button-container">
         <button type="button" class="btn btn-secondary" onclick="clearForm()">Clear</button>
         <button type="button" class="btn btn-primary" onclick="fillFormWithRandomRow()">Generate</button>
         <button type="submit" class="btn btn-primary btn-block btn-large">Predict</button>
-      </div>
-      <br>
-      <br>
+    </div>
+    <br>
+    <br>
     </form>
     <div class="prediction-container {% if 'Fraud' in prediction_text %}prediction-fraud{% elif 'Genuine' in prediction_text %}prediction-genuine{% endif %}">
         {{ prediction_text }}
     </div>
     <br>
     <br> 
-  </div>
-
-  <script>
-    // JavaScript function to clear the form
-    function clearForm() {
-        var inputs = document.getElementById("prediction_form").getElementsByTagName("input");
-        var predictionContainer = document.querySelector(".prediction-container");
-        
-        // Clear form inputs
-        for (var i = 0; i < inputs.length; i++) {
-            inputs[i].value = "";
-        }
-        
-        // Clear prediction text
-        predictionContainer.textContent = "";
-    }
-    
-    // JavaScript function to fill the form with random row data
-    function fillFormWithRandomRow() {
-    // Make an AJAX request to the server to fetch a random row
-    var xhr = new XMLHttpRequest();
-    xhr.open('GET', '/get_random_row', true);
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4 && xhr.status === 200) {
-        var data = JSON.parse(xhr.responseText);
-
-        // Fill the form with the random row data
-        var form = document.getElementById("prediction_form");
-        var inputs = form.querySelectorAll("input[name]");
-
-        inputs.forEach(function (input) {
-            var name = input.getAttribute("name");
-            if (data.hasOwnProperty(name)) {
-            input.value = data[name];
-            }
-        });
-        }
-    };
-    xhr.send();
-    }
-  </script>
+    </div>
+<script src="../static/script.js"></script>
 </body>
 </html>

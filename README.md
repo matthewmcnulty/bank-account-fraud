@@ -1,4 +1,4 @@
-# [Bank Account Fraud (NeurIPS 2022)](https://www.kaggle.com/datasets/sgpjesus/bank-account-fraud-dataset-neurips-2022)
+# [Bank Account Fraud (NeurIPS 2022)](https://bank-account-fraud-production.up.railway.app/)
 
 The project focuses on the analysis of the Bank Account Fraud Dataset available on Kaggle. The dataset consists of application data from a bank, where fraudulent applications are identified by a binary target variable. The dataset is highly imbalanced, with the majority of the applications being non-fraudulent.
 

@@ -1,0 +1,92 @@
+/* body */
+body {
+    background-color: #eaf8e3;
+    font-family: 'Roboto', sans-serif;
+}
+
+/* navbar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background-color: inherit;
+}
+.navbar-title {
+  margin: 0;
+}
+.navbar-nav {
+  display: flex;
+  list-style: none;
+}
+.nav-item {
+  margin-left: 20px;
+}
+.nav-link {
+  padding: 10px 20px;
+  background-color: #f2f2f2;
+  cursor: pointer;
+  text-decoration: none;
+  color: #333;
+}
+.nav-link:hover {
+  background-color: #ddd;
+}
+.nav-link.active {
+  background-color: #fff;
+}
+
+/* grid */
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 10px;
+}
+.grid-container input {
+  width: 50%;
+  margin: 5px auto;
+}
+
+/* form */
+.form-group {
+  display: flex;
+  align-items: center;
+}
+.form-group label {
+  width: 240px;
+  text-align: right;
+  padding-right: 10px;
+}
+
+/* button */
+.button-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.button-container button {
+  width: 20%;
+  margin: 0 5px;
+}
+
+/* prediction */
+.prediction-container {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 18px;
+  font-weight: bold;
+}
+.prediction-fraud {
+    color: red;
+}
+.prediction-genuine {
+    color: green;
+}
+
+/* data */
+.data-list {
+  text-align: left;
+}
+.data-list li {
+  margin-bottom: 10px;
+}
