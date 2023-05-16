@@ -7,7 +7,7 @@ import sqlite3
 app = Flask(__name__)
 
 # Load the XGBoost model
-xgb_model = pickle.load(open('./models/xgb_test.pkl', 'rb'))
+xgb_model = pickle.load(open('./models/xgb_final.pkl', 'rb'))
 
 @app.route('/')
 def home():
